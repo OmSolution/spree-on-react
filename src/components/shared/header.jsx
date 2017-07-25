@@ -5,6 +5,7 @@ import FilterBarConnector from '../../containers/taxon-filters/filter-bar-connec
 import CartNotificationInfoConnector from '../../containers/cart/notification-info-connector';
 import SearchFormConnector from '../../containers/search-form-connector';
 import UserLoginConnector  from '../../containers/user-login-connector';
+import UserSignupConnector  from '../../containers/user-signup-connector';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
 class Header extends Component {
@@ -16,18 +17,28 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false };
+    this.state = { showSigninModal: false, showSignupModel:false };
+    this.openSigninModal = this.openSigninModal.bind(this);
+    this.closeSigninModal = this.closeSigninModal.bind(this);
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.openSignupModal = this.openSignupModal.bind(this);
+    this.closeSignupModal = this.closeSignupModal.bind(this);
   };
 
-  openModal() {
-    this.setState({ showModal: true });
+  openSigninModal() {
+    this.setState({ showSigninModal: true });
   };
 
-  closeModal() {
-    this.setState({ showModal: false });
+  closeSigninModal() {
+    this.setState({ showSigninModal: false });
+  };
+
+  openSignupModal() {
+    this.setState({ showSignupModal: true });
+  };
+
+  closeSignupModal() {
+    this.setState({ showSignupModal: false });
   };
 
   navIcons () {
@@ -44,9 +55,13 @@ class Header extends Component {
     }
     else {
       userSessionActionMarkup = <dd className='icon-block user-link-block'>
-        <a className="primary-link" onClick={ this.openModal }>
+        <a  className="primary-link" onClick={ this.openSigninModal }>
           <span className="glyphicon glyphicon-user"></span>
           Login
+        </a>
+        <a className="primary-link" onClick={ this.openSignupModal }>
+          <span className="glyphicon glyphicon-user"></span>
+          Register
         </a>
       </dd>;
     }
@@ -56,7 +71,8 @@ class Header extends Component {
               { userSessionActionMarkup }
 
               <CartNotificationInfoConnector />
-              <UserLoginConnector showModal={ this.state.showModal } closeModal={ this.closeModal } />
+              <UserLoginConnector showModal={ this.state.showSigninModal } closeModal={ this.closeSigninModal } />
+              <UserSignupConnector showModal={ this.state.showSignupModal } closeModal={ this.closeSignupModal } />
               <SearchFormConnector />
            </dl>;
   };

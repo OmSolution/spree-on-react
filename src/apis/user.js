@@ -6,6 +6,12 @@ const UserAPI = {
       .post(`${ process.env.REACT_APP_AMS_API_BASE }/users/token`)
       .set('Accept', 'application/json')
       .send(params);
+  },
+  signup: (params) => {
+    return request
+      .post(`${ process.env.REACT_APP_AMS_API_BASE }/users`)
+      .set('Accept', 'application/json')
+      .send(params);
   }
 };
 

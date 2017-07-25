@@ -1,46 +1,119 @@
+
 import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form';
+
+import Modal from './shared/modal';
+import FlashConnector from '../containers/flash-connector';
+import SocialConnector from '../containers/social-connector';
+
 
 class userSignup extends Component {
+  constructor(props){
+    super(props);
+
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleSocialSubmit = this.handleSocialSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  };
+
+  handleFormSubmit (formData) {
+    this.props.submitSignupForm(formData).then((response) => {
+      this.closeModal();
+    },
+    (error) => {});
+  };
+
+  handleSocialSubmit (usr,error){
+    // make formdata here
+    // call handle form submit from here
+
+
+    // 1- userid 2- accessToken 3- email 4- first_name 5- last_name 6- picture
+    //var data = {user: {id: usr.id, access_token: usr.authResponse.accessToken, email: usr.email, first_name: usr.first_name, last_name: usr.last_name, picture: usr.picture.data.url}}
+   var data = {user:{email:''},omniauth: {uid: usr.token.accessToken, provider: usr.provider, email: usr.profile.email}};
+   this.handleFormSubmit(data);
+    // this.props.submitLoginForm(data).then((response) => {
+    //   this.closeModal();
+    // },
+    // (error) => {});
+    
+  };
+
+  closeModal () {
+    this.props.closeModal();
+    /* Reset the redux form when modal is closed */
+    this.props.reset();
+  };
 
   render() {
+    const { handleSubmit, valid, submitting } = this.props;
+
     return (
-      <form>
-        <div className="form-group row no-margin">
-          <label className="col-sm-12 control-label">
-            Email
-          </label>
-          <div className="col-sm-12">
-            <input type="text" htmlFor="" className="form-control" />
-          </div>
-        </div>
+            <Modal modalClasses="user-form-modal" showModal={ this.props.showModal } closeModal={ this.closeModal } >
+                <div className="center-block user-form-process">
+                  <div className="cmn-user-form">
+                    <div className="form-heading-title center-heading no-border big">Register</div>
+                    <FlashConnector />
+                    <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
+                      <div className="form-group row no-margin">
+                        <label className="col-sm-12 control-label">
+                          Email
+                        </label>
+                        <div className="col-sm-12">
+                          <Field className="form-control"
+                              name="user[email]"
+                              component="input"
+                              type="text" />
+                        </div>
+                      </div>
 
-        <div className="form-group clearfix">
-          <label className="col-sm-12 control-label">
-            Password
-          </label>
-          <div className="col-sm-12">
-            <input type="text" htmlFor="" className="form-control" />
-          </div>
-        </div>
+                      <div className="form-group clearfix">
+                        <label className="col-sm-12 control-label">
+                          Password
+                        </label>
+                        <div className="col-sm-12">
+                          <Field className="form-control"
+                              name="user[password]"
+                              component="input"
+                              type="password" />
+                        </div>
+                      </div>
 
-        <div className="form-group clearfix">
-          <label className="col-sm-12 control-label">
-            Confirm Password
-          </label>
-          <div className="col-sm-12">
-            <input type="text" htmlFor="" className="form-control" />
-          </div>
-        </div>
+                      <div className="form-group clearfix">
+                        <label className="col-sm-12 control-label">
+                          Confirm Password
+                        </label>
+                        <div className="col-sm-12">
+                          <Field className="form-control"
+                              name="user[confirm_password]"
+                              component="input"
+                              type="password" />
+                        </div>
+                      </div>
 
-        <div className="form-group clearfix">
-          <div className="col-sm-12 text-center">
-            <a className="btn btn-default btn-lg btn-common" onClick={ this.props.toggle }>Login</a>
-            <a className="btn btn-success btn-lg btn-common">Signup</a>
-          </div>
-        </div>
-      </form>
+                      <div className="form-group clearfix">
+                        <div className="col-sm-12 text-center">
+                          <button type="submit"
+                                  disabled={ !valid || submitting }
+                                  className="btn btn-success btn-lg btn-common">
+                                  Register
+                          </button>
+                        </div>
+                      </div>
+
+                      <SocialConnector closeModal = {this.closeModal}/>
+                    </form>
+                  </div>
+                </div>
+              </Modal>
     );
-  }
-}
+  };
+};
+
+userSignup = reduxForm({
+  form: 'userSignup'
+})(userSignup);
 
 export default userSignup;
+
+
