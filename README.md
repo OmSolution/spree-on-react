@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Introduction
 
-Spree-on-react provides a complete front end for [Spree](https://github.com/spree/spree) built entirely on [ReactJS](https://facebook.github.io/react). It works with [spree_ams](https://github.com/vinsol/spree_ams) gem which is written using `ActiveModelSerializers` and is a faster and a better alternative to the core spree api.
+Spree-on-react provides a complete front end for [Spree](https://github.com/spree/spree) built entirely on [ReactJS](https://facebook.github.io/react). It works with [spree_ams](https://github.com/OmSolution/spree_ams) gem which is written using `ActiveModelSerializers` and is a faster and a better alternative to the core spree api.
 
 The purpose of this repository is to continue to evolve spree, making it faster and easier to use.
 
@@ -138,7 +138,7 @@ This application is under initial development currently. It uses a spree API ser
 
 #### Clone this repository
 ```sh
-git clone https://github.com/ShubhamGupta/spree-on-react.git
+git clone https://github.com/OmSolution/spree-on-react.git
 cd spree-on-react
 ```
 #### Install Node and npm
@@ -178,7 +178,7 @@ Finally, run your Spree project on port 3001 (or whatever port you specified in 
 cd <path-to-your-rails-spree-project>
 ```
 ``` ruby
-gem 'spree_ams', github: 'vinsol-spree-contrib/spree_ams', branch: '3-1-stable'
+gem 'spree_ams', github: 'OmSolution/spree_ams', branch: '3-1-stable'
 ```
 
 **Run your rails server.**
