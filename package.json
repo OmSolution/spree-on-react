@@ -81,7 +81,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build:langs": "./node_modules/.bin/babel-node scripts/translate.js",
-    "build": "npm run node scripts/build.js",
+    "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
