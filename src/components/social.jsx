@@ -16,7 +16,7 @@ class Social extends Component {
   handleSocialSubmit (usr,error){
     //var data = {user: {id: usr.id, access_token: usr.authResponse.accessToken, email: usr.email, first_name: usr.first_name, last_name: usr.last_name, picture: usr.picture.data.url}}
     // this is how it is handled at backend for google
-    let provider = (usr.provider == 'google')? usr.provider+'_oauth2' : provider;
+    let provider = (usr.provider == 'google')? usr.provider+'_oauth2' : usr.provider
    
     var data = {user:{email:''},omniauth: {uid: usr.token.accessToken, provider: provider, email: usr.profile.email}};
    
