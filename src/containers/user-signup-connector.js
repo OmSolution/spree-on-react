@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 
       signupPromise.then((response) => {
         dispatch(Actions.hideLoader());
-        dispatch(Actions.login(response.body.user));
+        dispatch(Actions.login(response.body));
         dispatch(Actions.showFlash('Successfully Logged In'));
       },
       (error) => {
